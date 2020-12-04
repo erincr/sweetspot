@@ -94,13 +94,35 @@ plot_sweetspot(result, title="Sweet spot on simulated data")
 
 ![](man/figures/README-example_without_sweetspot-1.png)<!-- -->
 
-# Reference
+# References
 
-For full details, please see the paper “Finding and assessing treatment
-effect sweet spots in clinical trial data.”
+For details of this method, please see the following preprint:
 
 Erin Craig, Donald A. Redelmeier, and Robert J. Tibshirani. “Finding and
 assessing treatment effect sweet spots in clinical trial data.” arXiv
-preprint arXiv:2011.10157 (2020).
+preprint arXiv:2011.10157 (2020). <https://arxiv.org/abs/2011.10157>
 
-<https://arxiv.org/abs/2011.10157>
+For more about the data, please see:
+
+Dondorp, Arjen M., et al. “Artesunate versus quinine in the treatment of
+severe falciparum malaria in African children (AQUAMAT): an open-label,
+randomised trial.” The Lancet 376.9753 (2010): 1647-1657.
+[https://www.sciencedirect.com/science/article/pii/S0140673610619241](The%20Lancet)
+
+The data in this package was downloaded from Github:
+<https://github.com/Stije/SevereMalariaAnalysis>.
+
+It was initially published to accompany the following research:
+
+Watson, Leopold et al. Collider bias and the apparent protective effect
+of glucose-6-phosphate dehydrogenase deficiency on cerebral malaria
+eLife (2019). [https://elifesciences.org/articles/43154](eLife)
+
+Leopold, Watson et al. Investigating causal pathways in severe
+falciparum malaria: a pooled retrospective analysis of clinical studies
+In Press, PLoS Medicine (2019).
+[https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1002858](PLoS%20Medicine)
+
+Watson, J.A., Holmes, C.C. Graphing and reporting heterogeneous
+treatment effects through reference classes. Trials 21, 386 (2020).
+[https://doi.org/10.1186/s13063-020-04306-1](Trials)

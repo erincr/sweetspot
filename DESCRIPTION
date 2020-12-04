@@ -19,7 +19,7 @@ Authors@R: c(person("Erin", "Craig", role = c("aut", "cre"), email = "erincr@sta
 Maintainer: Erin Craig <erincr@stanford.edu>
 License: GPL (>= 2) 
 Collate: 
-    'aquamat-data.R'
+    'aquamat_data.R'
     'find_sweetspot.R'
     'match_individuals.R'
     'plot_result.R'

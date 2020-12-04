@@ -33,7 +33,7 @@
 #' @include predilection_scores.R
 #' @include find_sweetspot.R
 #' @include plot_result.R
-#' @include aquamat-data.R
+#' @include aquamat_data.R
 #' 
 #' @importFrom glmnet glmnet 
 #' @importFrom optmatch pairmatch
