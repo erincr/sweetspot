@@ -1,0 +1,27 @@
+Package: sweetspot
+Title: Find and Assess Treatment Effect Sweet Spots in Clinical Trial Data
+Description: Identifying heterogeneous treatment effects (HTEs) in randomized controlled trials is an important step toward understanding and acting on trial results. However, HTEs are often small and difficult to identify, and HTE modeling methods which are very general can suffer from low power. This method exploits any existing relationship between illness severity and treatment effect, and identifies the "sweet spot", the contiguous range of illness severity where the estimated treatment benefit is maximized. We further compute a bias-corrected estimate of the conditional average treatment effect (CATE) in the sweet spot, and a p-value.
+Version: 0.1.0
+Depends: R (>= 3.6)
+Imports: stats (>= 4.0),     
+	 ggplot2 (>= 3.3), 
+	 glmnet (>= 4.0), 
+	 optmatch (>= 0.9),
+	 doParallel (>= 1.0),
+	 foreach (>= 1.5),
+	 parallel (>= 4.0)
+Encoding: UTF-8
+RoxygenNote: 7.1.1
+LazyData: true
+Authors@R: c(person("Erin", "Craig", role = c("aut", "cre"), email = "erincr@stanford.edu"),
+              person("Donald", "Redelmeier", role = c("aut")),                    
+              person("Robert", "Tibshirani", role = c("aut")) )
+Maintainer: Erin Craig <erincr@stanford.edu>
+License: GPL (>= 2) 
+Collate: 
+    'aquamat-data.R'
+    'find_sweetspot.R'
+    'match_individuals.R'
+    'plot_result.R'
+    'predilection_scores.R'
+    'sweetspot.R'

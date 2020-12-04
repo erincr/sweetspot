@@ -1,0 +1,36 @@
+#' @title Example randomized controlled trial data
+#'
+#' Data from a randomized controlled trial comparing artesunate to quinine in the treatment of severe falciparum malaria in African children, with outcome in-hospital mortality.
+#' Missing values have been imputed with the median.
+#'
+#' @docType data
+#'
+#' @usage data(aquamat)
+#'
+#' @format A dataframe with the AQUAMAT data.
+#'
+#' @keywords datasets
+#'
+#' @references 
+#' Dondorp, Arjen M., et al. "Artesunate versus quinine in the treatment of severe falciparum malaria in African children (AQUAMAT): an open-label, randomised trial." The Lancet 376.9753 (2010): 1647-1657.
+#' (\href{https://www.sciencedirect.com/science/article/pii/S0140673610619241}{The Lancet})
+#' Watson, Leopold et al. Collider bias and the apparent protective effect of glucose-6-phosphate dehydrogenase deficiency on cerebral malaria eLife (2019).
+#' (\href{https://elifesciences.org/articles/43154}{eLife})
+#' Leopold, Watson et al. Investigating causal pathways in severe falciparum malaria: a pooled retrospective analysis of clinical studies In Press, PLoS Medicine (2019).
+#' (\href{https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1002858}{PLoS Medicine})
+#' Watson, J.A., Holmes, C.C. Graphing and reporting heterogeneous treatment effects through reference classes. Trials 21, 386 (2020).
+#' (\href{ https://doi.org/10.1186/s13063-020-04306-1}{Trials})
+#' Craig, E., Redelmeier, D.A., Tibshirani, R. J. Finding and assessing treatment effect sweet spots in clinical trial data. Arxiv (2020).
+#' (\href{https://arxiv.org/abs/2011.10157}{arXiv})
+#'
+#' @source \href{https://github.com/Stije/SevereMalariaAnalysis}{Github}
+#'
+#' @examples
+#' data(aquamat)
+#' covariates <- as.matrix(aquamat[, 1:(ncol(aquamat)-3)])
+#' treated    <- aquamat$treated
+#' negative.outcome <- aquamat$negative.outcome
+#' positive.outcome <- aquamat$positive.outcome
+#' \donttest{result <- sweetspot(treated, covariates, negative.outcome, positive.outcome, "binomial")}
+#' \donttest{plot_sweetspot(result, title="Sweet spot analysis: AQUAMAT trial")}
+"aquamat"
