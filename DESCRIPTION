@@ -23,5 +23,5 @@ Collate:
     'find_sweetspot.R'
     'match_individuals.R'
     'plot_result.R'
-    'predilection_scores.R'
+    'risk_scores.R'
     'sweetspot.R'
