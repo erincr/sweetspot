@@ -32,7 +32,6 @@
 #' @include risk_scores.R
 #' @include find_sweetspot.R
 #' @include plot_result.R
-#' @include aquamat_data.R
 #' 
 #' @importFrom glmnet glmnet 
 #' @importFrom optmatch pairmatch
@@ -40,7 +39,6 @@
 #' @importFrom foreach %dopar% foreach
 #' @importFrom stats smooth.spline predict
 #' @importFrom parallel detectCores
-#' @importFrom survival survfit
 #' 
 #' @examples 
 #' # Example data with a sweet spot
