@@ -7,14 +7,15 @@
 sweetspot(
   treated,
   covariates,
-  negative.outcome,
-  positive.outcome,
+  outcome,
   family,
   regularized = F,
   control.treated.ratio = 1,
-  predilection.score.nfolds = 10,
+  risk.score.nfolds = 10,
   ntrials.significance = 1000,
   ntrials.bias = 1000,
+  min.size.fraction = 1/20,
+  max.size.fraction = 1,
   ncores = NULL
 )
 }
@@ -24,31 +25,31 @@ and the value 0 indicates that they were a control.}
 
 \item{covariates}{A numeric matrix containing rows of covariates for every individual in the trial (in the same order as in `treated`).}
 
-\item{negative.outcome}{The response we use to compute our predilection score. This will determine the model we use.
-This is a vector with values that may be binary (logistic regression) or continuous (linear regression). 
-In the binary case, this may be 1 if the patient died, and 0 else.}
-
-\item{positive.outcome}{The response we use to compute the treatment effect. In the binary case, this may be 1 if the patient lived, and 0 else.}
+\item{outcome}{The response we use to compute the treatment effect. In the binary case, this may be 1 if the patient lived, and 0 else.}
 
 \item{family}{A string indicating the response type. Options are "binomial" (for logistic regression) or "gaussian" (for linear regression).}
 
-\item{regularized}{Boolean indicating whether to use regularization in the predilection score model. If TRUE, we use the optimal model returned by cv.glmnet.}
+\item{regularized}{Boolean indicating whether to use regularization in the risk score model. If TRUE, we use the optimal model (lambda.min) returned by cv.glmnet.}
 
 \item{control.treated.ratio}{The (positive integer) number of controls for each treated individual.}
 
-\item{predilection.score.nfolds}{The (positive integer) number of folds we use in pre-validation for the predilection score. The default is 10 folds.}
+\item{risk.score.nfolds}{The (positive integer) number of folds we use in pre-validation for the risk score. The default is 10 folds.}
 
 \item{ntrials.significance}{The number of bootstraps to run when computing the p-value. Default is 1000.}
 
 \item{ntrials.bias}{The number of bootstraps to run when debiasing the estimate of the treatment effect. Default is 1000.}
 
+\item{min.size.fraction}{The minimum sweet spot width to consider. (Can not contain fewer than four matched sets.)}
+
+\item{max.size.fraction}{The maximum sweet spot width to consider. (Can not be larger than 1 - the ful size of the data.)}
+
 \item{ncores}{The number of cores to use when finding the sweet spot. If NULL, defaults to parallel::detectCores()-1.}
 }
 \value{
 A list of results, containing: \itemize{
-        \item{"matches", the matrix of matched treated and control patients, their mean predilection score and treatment effect estimate}
-        \item{"predilection.score.model", the fitted glmnet object that models the predilection score}
-        \item{"predilection.scores", the vector of prevalidated predilection scores for each patient}
+        \item{"matches", the matrix of matched treated and control patients, their mean risk score and treatment effect estimate}
+        \item{"risk.score.model", the fitted glmnet object that models the risk score}
+        \item{"risk.scores", the vector of prevalidated risk scores for each patient}
         \item{"model", the sweet spot model, a list containing:\itemize{
             \item{the start and end index of the sweet spot}
             \item{the bootstrapped p-value}
@@ -63,7 +64,7 @@ Identifying heterogeneous treatment effects (HTEs) in randomized controlled tria
 }
 \examples{
 # Example data with a sweet spot
-# We generate data with a sweetspot in the middle 20\% of predilection scores.
+# We generate data with a sweetspot in the middle 20\% of risk scores.
 # Outside the sweet spot, the treatment effect is 5\%.
 # Inside the sweet spot, the treatment effect is 25\%.
 set.seed(1234)
@@ -75,14 +76,12 @@ outcome.prob <- 1/(1+exp(-(covariates \%*\% beta)))
 in.sweet.spot <- !is.na(cut(outcome.prob, c(.4, .6)))
 outcome.prob[treated==1] <- outcome.prob[treated==1] + .05
 outcome.prob[treated==1 & in.sweet.spot] <- outcome.prob[treated==1 & in.sweet.spot] + .2
-outcome.prob     <- pmin(outcome.prob, 1)
-positive.outcome <- rbinom(n, 1, prob=outcome.prob)
-negative.outcome <- 1-positive.outcome
+outcome.prob <- pmin(outcome.prob, 1)
+outcome <- rbinom(n, 1, prob=outcome.prob)
 
 # We limit the number of trials run only to illustrate how to use this function.
 # In practice, we recommend more bootstrap trials.
-result <- sweetspot(treated, covariates, 
-                    negative.outcome, positive.outcome, 
+result <- sweetspot(treated, covariates, outcome, 
                     "binomial", ntrials.bias=250, ntrials.significance=250)
 plot_sweetspot(result, title="Sweet spot on simulated data")
 
@@ -96,11 +95,9 @@ covariates <- matrix(rnorm(n * p), nrow=n, ncol=p)
 beta       <- rnorm(p)
 outcome.probability <- 1/(1+exp(-(covariates \%*\% beta)))
 outcome.probability[treated == 1] <- pmin(outcome.probability[treated == 1] + .05, 1) 
-positive.outcome <- rbinom(n, 1, prob=outcome.probability)
-negative.outcome <- 1-positive.outcome
+outcome <- rbinom(n, 1, prob=outcome.probability)
 
-result <- sweetspot(treated, covariates, 
-                    negative.outcome, positive.outcome, 
+result <- sweetspot(treated, covariates, outcome, 
                     "binomial", ntrials.bias=250, ntrials.significance=250)
 plot_sweetspot(result, title="Sweet spot on simulated data")
 

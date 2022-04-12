@@ -22,7 +22,7 @@ plot_sweetspot <- function(sweetspot_result, title=""){
   model    <- sweetspot_result$model
   matches  <- sweetspot_result$matches
   
-  smoothed <- smooth.spline(matches[, "mean_score"], matches[, "apparent_benefit"])
+  smoothed <- smooth.spline(matches[, "mean_score"], matches[, "treatment_effect"])
     
   n     <- nrow(matches)
   
@@ -48,15 +48,9 @@ plot_sweetspot <- function(sweetspot_result, title=""){
   p <- p + scale_fill_manual( breaks=c("debiased", "original", "start", "end"), values=c(BLUE, GREY, GREEN1, GREEN2))
   p <- p + geom_rug(aes(x=matches[sample(model$start.indices, min(n, 1000)), "mean_score"], color="start"), size=1, length = unit(0.05, "npc"), alpha=.1)
   p <- p + geom_rug(aes(x=matches[sample(model$end.indices, min(n, 1000)), "mean_score"],   color="end"),   size=1, length = unit(0.05, "npc"), alpha=.1)
-  p <- p + labs(x = "Predilection score", y = "Treatment effect estimate", x="", y="", color="", fill="", 
+  p <- p + labs(x = "Risk score", y = "Treatment effect estimate", x="", y="", color="", fill="", 
                 subtitle=paste0("p-value: ", model$p.value), title=title) 
   p <- p + theme_bw(base_size=BASE_SIZE) 
-  p <- p + theme(
-              axis.line = element_line(colour = "#d5d5d5"),
-              panel.grid.major.y = element_line(linetype = "dotted", color="#d5d5d5"),
-              panel.grid.major.x = element_line(linetype = "dotted", color="#d5d5d5"),
-              panel.grid.minor = element_blank(),
-              panel.border = element_blank(),
-              panel.background = element_blank()) 
+  p <- p + theme_minimal(base_size=BASE_SIZE)
   p
 }
