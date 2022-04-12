@@ -46,7 +46,7 @@
 #' # Example data with a sweet spot
 #' # We generate data with a sweetspot in the middle 20% of risk scores.
 #' # Outside the sweet spot, the treatment effect is 5%.
-#' # Inside the sweet spot, the treatment effect is 25%.
+#' # Inside the sweet spot, the treatment effect is 45%.
 #' set.seed(1234)
 #' n <- 500; p <- 10;
 #' treated    <- sample(c(0,1), n, replace=TRUE)
@@ -55,7 +55,7 @@
 #' outcome.prob <- 1/(1+exp(-(covariates %*% beta)))
 #' in.sweet.spot <- !is.na(cut(outcome.prob, c(.4, .6)))
 #' outcome.prob[treated==1] <- outcome.prob[treated==1] + .05
-#' outcome.prob[treated==1 & in.sweet.spot] <- outcome.prob[treated==1 & in.sweet.spot] + .2
+#' outcome.prob[treated==1 & in.sweet.spot] <- outcome.prob[treated==1 & in.sweet.spot] + .4
 #' outcome.prob <- pmin(outcome.prob, 1)
 #' outcome <- rbinom(n, 1, prob=outcome.prob)
 #' 
