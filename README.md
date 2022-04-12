@@ -102,17 +102,15 @@ Erin Craig, Donald A. Redelmeier, and Robert J. Tibshirani. “Finding and
 assessing treatment effect sweet spots in clinical trial data.” arXiv
 preprint arXiv:2011.10157 (2020). <https://arxiv.org/abs/2011.10157>
 
-For more about the data, please see:
+To access the data used in the paper, please see:
+<https://github.com/Stije/SevereMalariaAnalysis>,
+
+and the papers it accompanies:
 
 Dondorp, Arjen M., et al. “Artesunate versus quinine in the treatment of
 severe falciparum malaria in African children (AQUAMAT): an open-label,
 randomised trial.” The Lancet 376.9753 (2010): 1647-1657.
 [https://www.sciencedirect.com/science/article/pii/S0140673610619241](The%20Lancet)
-
-The data in this package was downloaded from Github:
-<https://github.com/Stije/SevereMalariaAnalysis>.
-
-It was initially published to accompany the following research:
 
 Watson, Leopold et al. Collider bias and the apparent protective effect
 of glucose-6-phosphate dehydrogenase deficiency on cerebral malaria
@@ -126,3 +124,5 @@ In Press, PLoS Medicine (2019).
 Watson, J.A., Holmes, C.C. Graphing and reporting heterogeneous
 treatment effects through reference classes. Trials 21, 386 (2020).
 [https://doi.org/10.1186/s13063-020-04306-1](Trials)
+
+
