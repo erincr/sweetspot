@@ -41,12 +41,14 @@ n <- 1000; p <- 10;
 treated    <- sample(c(0,1), n, replace=TRUE)
 covariates <- matrix(rnorm(n * p), nrow=n, ncol=p)
 beta       <- rnorm(p)
+
 outcome.prob <- 1/(1+exp(-(covariates %*% beta)))
+
 in.sweet.spot <- !is.na(cut(outcome.prob, c(.4, .6)))
 outcome.prob[treated==1 & !in.sweet.spot] <- outcome.prob[treated==1 & !in.sweet.spot] + .05
 outcome.prob[treated==1 &  in.sweet.spot] <- outcome.prob[treated==1 & in.sweet.spot]  + .25
-outcome.prob     <- pmin(outcome.prob, 1)
-outcome <- rbinom(n, 1, prob=outcome.prob)
+
+outcome <- rbinom(n, 1, prob=pmin(outcome.prob, 1))
 ```
 
 We are now ready to run the sweet spot analysis.
@@ -81,10 +83,11 @@ n <- 1000; p <- 10;
 treated    <- sample(c(0,1), n, replace=TRUE)
 covariates <- matrix(rnorm(n * p), nrow=n, ncol=p)
 beta       <- rnorm(p)
+
 outcome.prob <- 1/(1+exp(-(covariates %*% beta)))
 outcome.prob[treated==1] <- outcome.prob[treated==1] + .05
-outcome.prob     <- pmin(outcome.prob, 1)
-outcome <- rbinom(n, 1, prob=outcome.prob)
+
+outcome <- rbinom(n, 1, prob=pmin(outcome.prob, 1))
 
 result <- sweetspot(treated, covariates, outcome, "binomial")
 plot_sweetspot(result, title="Sweet spot on simulated data")
