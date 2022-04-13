@@ -60,13 +60,13 @@ plot_sweetspot(result, title="Sweet spot on simulated data")
 
 ![](man/figures/README-example_with_sweetspot-1.png)<!-- -->
 
-We may also look at the predictions from the prevalidated predilection
-score model. For example, we can compute the AU-ROC of the predilection
+We may also look at the predictions from the prevalidated risk
+score model. For example, we can compute the AU-ROC of the risk
 score model on untreated patients:
 
 ``` r
-pos.scores <- 1/(1+exp(-result$predilection.scores[negative.outcome==1 & treated==0]))
-neg.scores <- 1/(1+exp(-result$predilection.scores[negative.outcome==0 & treated==0]))
+pos.scores <- 1/(1+exp(-result$risk.scores[negative.outcome==1 & treated==0]))
+neg.scores <- 1/(1+exp(-result$risk.scores[negative.outcome==0 & treated==0]))
 auc <- mean(sample(pos.scores,10000,replace=T) > sample(neg.scores,10000,replace=T))
 auc
 #> [1] 0.827
